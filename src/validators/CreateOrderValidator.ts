@@ -31,7 +31,13 @@ export const createOrderValidator = [
   check('numbers')
     .notEmpty()
     .withMessage('Os números devem ser informados!')
-    .bail(),
+    .bail()
+    .isArray()
+    .withMessage('Os números deve ser uma lista!'),
+  check('numbers.*')
+    .notEmpty()
+    .isNumeric()
+    .withMessage('O número deve ser informado!'),
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
